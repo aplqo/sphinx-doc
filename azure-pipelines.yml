@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+      - master
+  tags:
+    include:
+      - v*
+
+jobs:
+  - job: build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          sudo pip install -U Sphinx
+          sudo apt-get install texlive-full -y
+        displayName: install
+      - script: |
+          make latexpdf
+          touch _build/html/.nojekyll
+      - task: GitHubRelease@0
+        inputs:
+          gitHubConnection:  aplqo # add github commection
+          repositoryName: aplqo/$(repository_ame)
+          action: 'create'
+          assets: _build/latex/*.pdf
