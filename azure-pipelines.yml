@@ -1,4 +1,7 @@
 trigger:
+  branches:
+    include:
+      - latest
   tags:
     include:
       - v*
@@ -16,8 +19,12 @@ jobs:
           make latexpdf
           touch _build/html/.nojekyll
       - task: GitHubRelease@0
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
         inputs:
           gitHubConnection:  aplqo # add github commection
-          repositoryName: aplqo/$(repository_ame)
+          repositoryName: aplqo/$(repository_name)
           action: 'create'
           assets: _build/latex/*.pdf
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: _build/latex/*.pdf
