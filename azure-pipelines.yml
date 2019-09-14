@@ -12,7 +12,8 @@ jobs:
       vmImage: 'ubuntu-latest'
     steps:
       - script: |
-          sudo pip install -U Sphinx
+          sudo apt-get install python3-pip -y
+          sudo pip3 install -U Sphinx
           sudo apt-get install texlive-full -y
         displayName: install
       - script: |
