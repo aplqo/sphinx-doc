@@ -13,7 +13,8 @@ jobs:
     steps:
       - script: |
           sudo apt-get install python3-pip -y
-          sudo pip3 install -U Sphinx
+          sudo pip3 install --upgrade pip
+          sudo pip3 install Sphinx
           sudo apt-get install texlive-full -y
         displayName: install
       - script: |
