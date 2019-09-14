@@ -23,9 +23,13 @@ jobs:
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
         inputs:
           gitHubConnection:  aplqo # add github commection
-          repositoryName: aplqo/$(repository_name)
+          repositoryName: '$(Build.Repository.Name)' 
+          target: $(Build.SourceVersion)
+          tagSource: auto
           action: 'create'
           assets: _build/latex/*.pdf
+          addChangeLog: true
+          compareWith: 'lastFullRelease'
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: _build/latex/*.pdf
