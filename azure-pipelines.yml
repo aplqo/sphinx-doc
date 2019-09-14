@@ -28,6 +28,8 @@ jobs:
           tagSource: auto
           action: 'create'
           assets: _build/latex/*.pdf
+          releaseNotesSource: 'file'
+          releaseNotesFile: ReleaseNote.md
           addChangeLog: true
           compareWith: 'lastFullRelease'
       - task: PublishPipelineArtifact@1
